@@ -1,0 +1,6 @@
+*.classpath
+*.project
+.settings/
+.metadata/
+insult-tools-java-tools/target/
+insult-tools-java-v9t9/target/

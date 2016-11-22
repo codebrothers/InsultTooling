@@ -9,21 +9,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codebrothers.speechengine.WordBank;
-import org.codebrothers.speechengine.WordBankProcessor;
 import org.codebrothers.speechengine.phrasepack.token.Phrase;
 import org.codebrothers.speechengine.phrasepack.token.PhraseBank;
 import org.codebrothers.speechengine.phrasepack.token.PhraseToken;
 import org.codebrothers.speechengine.phrasepack.token.Word;
 import org.codebrothers.speechengine.util.ByteArrayUtils;
 import org.codebrothers.speechengine.util.PathPreconditions;
+import org.codebrothers.speechengine.wordbank.WordBank;
+import org.codebrothers.speechengine.wordbank.WordBankProcessor;
+
+import uk.co.labbookpages.WavFileException;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
-
-import uk.co.labbookpages.WavFileException;
 
 /**
  * TODO - Optimization : If the C code can allow for it (which it should be able to) where a phrase consists of a single

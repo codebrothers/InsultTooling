@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import org.codebrothers.speechengine.phrasepack.token.PhraseBank;
 
 /**
- * Just a hacky class to demo the phrase pack, takes the phrase pack directory as an argument and prints out 10 phrases.
+ * Takes the phrase pack directory as an argument and prints out 10 phrases.
  */
 public class SayPhrase {
 

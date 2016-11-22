@@ -1,4 +1,4 @@
-package org.codebrothers.speechengine.phrasepack.texttowav;
+package org.codebrothers.speechengine.wordbank.texttowav;
 
 public class WordBankGeneratorException extends Exception {
 

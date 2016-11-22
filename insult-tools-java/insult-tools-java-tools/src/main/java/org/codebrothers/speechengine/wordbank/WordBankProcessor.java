@@ -1,4 +1,4 @@
-package org.codebrothers.speechengine;
+package org.codebrothers.speechengine.wordbank;
 
 import static org.codebrothers.speechengine.util.ByteArrayUtils.toHexString;
 
@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map.Entry;
 
+import org.codebrothers.speechengine.TalkieSpeechEncoder;
 import org.codebrothers.speechengine.util.FilenameUtils;
 import org.codebrothers.speechengine.util.PathPreconditions;
 

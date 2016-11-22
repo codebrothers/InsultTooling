@@ -1,4 +1,4 @@
-package org.codebrothers.speechengine.phrasepack.texttowav;
+package org.codebrothers.speechengine.wordbank.texttowav;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -22,7 +22,7 @@ import com.google.common.base.Preconditions;
 import com.ibm.icu.text.MessageFormat;
 
 /**
- * Generates a word bank from a phrase bank using Mary TTS.
+ * Generates a word bank on the file system from a phrase bank using Mary TTS.
  */
 public class WordBankGenerator {
 

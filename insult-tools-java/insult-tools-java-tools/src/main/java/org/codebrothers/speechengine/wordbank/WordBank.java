@@ -1,4 +1,4 @@
-package org.codebrothers.speechengine;
+package org.codebrothers.speechengine.wordbank;
 
 import java.util.HashMap;
 

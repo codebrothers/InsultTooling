@@ -2,7 +2,6 @@ package org.codebrothers.speechengine.phrasepack;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
@@ -17,13 +16,14 @@ import org.codebrothers.speechengine.phrasepack.token.PhraseBank;
 import org.codebrothers.speechengine.phrasepack.token.PhraseToken;
 import org.codebrothers.speechengine.phrasepack.token.Word;
 import org.codebrothers.speechengine.util.ByteArrayUtils;
-
-import uk.co.labbookpages.WavFileException;
+import org.codebrothers.speechengine.util.PathPreconditions;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
+
+import uk.co.labbookpages.WavFileException;
 
 /**
  * TODO - Optimization : If the C code can allow for it (which it should be able to) where a phrase consists of a single
@@ -142,14 +142,10 @@ public class PhrasePackRomGenerator {
     return generate(wordBankPath, phrasePackPath, Maps.newHashMap());
   }
 
-  private byte[] generate(Path wordBankPath, Path phrasePackPath, Map<Object, Integer> pointers) throws IOException,
-          WavFileException {
-    Preconditions.checkState(Files.exists(wordBankPath), "Path \"%s\" did not exist.", wordBankPath);
-    Preconditions.checkState(Files.isDirectory(wordBankPath), "Path \"%s\" was not a directory.", wordBankPath);
-    Preconditions.checkState(Files.isReadable(wordBankPath), "Path \"%s\" was not readable.", wordBankPath);
-    Preconditions.checkState(Files.exists(phrasePackPath), "Path \"%s\" did not exist.", phrasePackPath);
-    Preconditions.checkState(Files.isDirectory(phrasePackPath), "Path \"%s\" was not a directory.", phrasePackPath);
-    Preconditions.checkState(Files.isReadable(phrasePackPath), "Path \"%s\" was not readable.", phrasePackPath);
+  private byte[] generate(Path wordBankPath, Path phrasePackPath, Map<Object, Integer> pointers)
+          throws IOException, WavFileException {
+    PathPreconditions.checkReadableDirectory(wordBankPath);
+    PathPreconditions.checkReadableDirectory(phrasePackPath);
 
     // parse the phrase packs and the word bank
     PhrasePack phrasePack = new PhrasePackParser().parse(phrasePackPath);

@@ -22,8 +22,7 @@ import org.codebrothers.speechengine.phrasepack.token.PhraseBank;
 import org.codebrothers.speechengine.phrasepack.token.PhraseToken;
 import org.codebrothers.speechengine.phrasepack.token.Word;
 import org.codebrothers.speechengine.util.FilenameUtils;
-
-import com.google.common.base.Preconditions;
+import org.codebrothers.speechengine.util.PathPreconditions;
 
 public class PhrasePackParser {
 
@@ -32,9 +31,7 @@ public class PhrasePackParser {
   private static final String PHRASE_BANK_FILENAME_PATTERN = "^[a-z_]+\\.txt$";
 
   public PhrasePack parse(Path phrasePackPath) throws IOException {
-    Preconditions.checkState(Files.exists(phrasePackPath), "Path \"%s\" did not exist.", phrasePackPath);
-    Preconditions.checkState(Files.isDirectory(phrasePackPath), "Path \"%s\" was not a directory.", phrasePackPath);
-    Preconditions.checkState(Files.isReadable(phrasePackPath), "Path \"%s\" was not readable.", phrasePackPath);
+    PathPreconditions.checkReadableDirectory(phrasePackPath);
 
     // grab a list of paths to the phrase bank files
     Map<String, Path> paths = phraseBankPaths(phrasePackPath);
@@ -55,8 +52,8 @@ public class PhrasePackParser {
 
       // validate populated
       if (phraseBank.size() == 0) {
-        throw new IllegalStateException(MessageFormat.format(
-                "All phrase banks must be populated. Phrase bank \"{0}\" was empty.", pathEntry.getKey()));
+        throw new IllegalStateException(MessageFormat
+                .format("All phrase banks must be populated. Phrase bank \"{0}\" was empty.", pathEntry.getKey()));
       }
     }
 
@@ -106,8 +103,8 @@ public class PhrasePackParser {
 
   private Map<String, Path> phraseBankPaths(Path phrasePackPath) throws IOException {
     try (DirectoryStream<Path> ds = Files.newDirectoryStream(phrasePackPath, PhrasePackParser::isPathValid)) {
-      return StreamSupport.stream(ds.spliterator(), false).collect(
-              Collectors.toMap(FilenameUtils::fileNameWithoutExtension, Function.identity()));
+      return StreamSupport.stream(ds.spliterator(), false)
+              .collect(Collectors.toMap(FilenameUtils::fileNameWithoutExtension, Function.identity()));
     }
   }
 

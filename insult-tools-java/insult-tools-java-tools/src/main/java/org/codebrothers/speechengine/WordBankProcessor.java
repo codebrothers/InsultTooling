@@ -10,11 +10,10 @@ import java.nio.file.Paths;
 import java.util.Map.Entry;
 
 import org.codebrothers.speechengine.util.FilenameUtils;
+import org.codebrothers.speechengine.util.PathPreconditions;
 
 import uk.co.labbookpages.WavFileException;
 import v9t9.engine.speech.encode.LPCSpeechAnalyzer;
-
-import com.google.common.base.Preconditions;
 
 /**
  * Utility for crunching together a word bank from a bunch of WAV files.
@@ -59,9 +58,7 @@ public class WordBankProcessor {
   }
 
   public WordBank process(Path wordBankPath) throws IOException, WavFileException {
-    Preconditions.checkState(Files.exists(wordBankPath), "Path \"%s\" did not exist.", wordBankPath);
-    Preconditions.checkState(Files.isDirectory(wordBankPath), "Path \"%s\" was not a directory.", wordBankPath);
-    Preconditions.checkState(Files.isReadable(wordBankPath), "Path \"%s\" was not readable.", wordBankPath);
+    PathPreconditions.checkReadableDirectory(wordBankPath);
 
     WordBank wordBank = new WordBank();
     try (DirectoryStream<Path> ds = Files.newDirectoryStream(wordBankPath, WordBankProcessor::isPathValid)) {

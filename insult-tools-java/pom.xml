@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.codebrothers</groupId>
+  <artifactId>insult-tools-java</artifactId>
+  <packaging>pom</packaging>
+
+  <name>Java Insult Tooling</name>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <modules>
+    <module>insult-tools-java-v9t9</module>
+    <module>insult-tools-java-tools</module>
+  </modules>
+
+  <properties>
+    <!-- Guava dependency -->
+    <version.guava>19.0</version.guava>
+
+    <!-- Global build properties for DS5 -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.javaSourceVersion>1.8</project.build.javaSourceVersion>
+    <project.build.javaTargetVersion>1.8</project.build.javaTargetVersion>
+  </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.3</version>
+          <configuration>
+            <source>${project.build.javaSourceVersion}</source>
+            <target>${project.build.javaTargetVersion}</target>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Third party dependencies -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${version.guava}</version>
+      </dependency>
+
+      <!-- Inter-project dependencies -->
+      <dependency>
+        <groupId>org.codebrothers</groupId>
+        <artifactId>insult-tools-java-tools</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codebrothers</groupId>
+        <artifactId>insult-tools-java-v9t9</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+</project>

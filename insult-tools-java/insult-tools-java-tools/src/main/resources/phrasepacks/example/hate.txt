@@ -1,0 +1,6 @@
+hate
+despise
+abhor
+detest
+loathe
+{adverb} {hate}

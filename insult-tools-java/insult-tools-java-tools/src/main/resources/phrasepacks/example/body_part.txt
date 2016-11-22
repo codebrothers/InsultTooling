@@ -1,0 +1,7 @@
+face
+leg
+foot
+forehead
+backside
+chest
+stomach

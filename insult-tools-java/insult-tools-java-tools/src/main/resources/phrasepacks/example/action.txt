@@ -1,0 +1,6 @@
+hit
+hammer
+destroy
+coagulate
+mess_up
+{adverb} {action}

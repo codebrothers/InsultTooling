@@ -1,0 +1,5 @@
+{derog}
+i {hate} you _pause_ you {derog}
+i {hate} your {body_part} _pause_ it is {adjective}
+i want to {action} your {body_part} _pause_ you {derog}
+your {body_part} makes me want to {action} you

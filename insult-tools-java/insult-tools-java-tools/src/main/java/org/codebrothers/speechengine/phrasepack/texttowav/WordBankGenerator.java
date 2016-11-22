@@ -3,9 +3,16 @@ package org.codebrothers.speechengine.phrasepack.texttowav;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.sound.sampled.AudioInputStream;
+
+import marytts.LocalMaryInterface;
+import marytts.MaryInterface;
+import marytts.exceptions.MaryConfigurationException;
+import marytts.util.data.audio.AudioConverterUtils;
+import marytts.util.data.audio.MaryAudioUtils;
 
 import org.codebrothers.speechengine.phrasepack.PhrasePack;
 import org.codebrothers.speechengine.phrasepack.PhrasePackParser;
@@ -14,16 +21,12 @@ import org.codebrothers.speechengine.util.PathPreconditions;
 import com.google.common.base.Preconditions;
 import com.ibm.icu.text.MessageFormat;
 
-import marytts.LocalMaryInterface;
-import marytts.MaryInterface;
-import marytts.exceptions.MaryConfigurationException;
-import marytts.util.data.audio.AudioConverterUtils;
-import marytts.util.data.audio.MaryAudioUtils;
-
 /**
  * Generates a word bank from a phrase bank using Mary TTS.
  */
 public class WordBankGenerator {
+
+  private static final int TRIM_SAMPLES = 3000;
 
   private static final String DEFAULT_VOICE = "cmu-rms-hsmm";
 
@@ -47,8 +50,8 @@ public class WordBankGenerator {
     wordBankGenerator.generateWordBank(Paths.get(args[0]), Paths.get(args[1]));
   }
 
-  public void generateWordBank(Path phrasePackPath, Path outputDirectoryPath)
-          throws WordBankGeneratorException, IOException {
+  public void generateWordBank(Path phrasePackPath, Path outputDirectoryPath) throws WordBankGeneratorException,
+          IOException {
     PathPreconditions.checkReadableDirectory(phrasePackPath);
 
     PhrasePack phrasePack = new PhrasePackParser().parse(phrasePackPath);
@@ -66,8 +69,11 @@ public class WordBankGenerator {
 
   private void generateWord(String word, Path outputDirectoryPath) throws WordBankGeneratorException {
     try (AudioInputStream audio = AudioConverterUtils.downSampling(mary.generateAudio(word), 8000)) {
-      MaryAudioUtils.writeWavFile(MaryAudioUtils.getSamplesAsDoubleArray(audio),
-              outputDirectoryPath.resolve(word + ".wav").toString(), audio.getFormat());
+      double[] samplesAsDoubleArray = MaryAudioUtils.getSamplesAsDoubleArray(audio);
+      samplesAsDoubleArray =
+              Arrays.copyOfRange(samplesAsDoubleArray, 0, Math.max(0, samplesAsDoubleArray.length - TRIM_SAMPLES));
+      MaryAudioUtils.writeWavFile(samplesAsDoubleArray, outputDirectoryPath.resolve(word + ".wav").toString(),
+              audio.getFormat());
     } catch (Exception e) {
       throw new WordBankGeneratorException(MessageFormat.format("Problem generating word \"{0}\"", word), e);
     }

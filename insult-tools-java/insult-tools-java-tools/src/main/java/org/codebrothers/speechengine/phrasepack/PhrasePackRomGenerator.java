@@ -23,6 +23,7 @@ import uk.co.labbookpages.WavFileException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Maps;
 
 /**
  * TODO - Optimization : If the C code can allow for it (which it should be able to) where a phrase consists of a single
@@ -118,8 +119,6 @@ public class PhrasePackRomGenerator {
    */
   private static final int START_OFFSET = 2 * POINTER_SIZE;
 
-  private PhrasePackRomGenerator() {}
-
   public static void main(String[] args) throws IOException, WavFileException {
     if (args.length != 2) {
       System.out.println("Usage: PhrasePackRomGenerator [word_bank_directory] [phrase_pack_directory]");
@@ -137,6 +136,10 @@ public class PhrasePackRomGenerator {
 
     System.out.println("============= START ROM DATA =============");
     System.out.println(ByteArrayUtils.toHexString(romData, 20, pointers.inverse()));
+  }
+
+  public byte[] generate(Path wordBankPath, Path phrasePackPath) throws IOException, WavFileException {
+    return generate(wordBankPath, phrasePackPath, Maps.newHashMap());
   }
 
   private byte[] generate(Path wordBankPath, Path phrasePackPath, Map<Object, Integer> pointers) throws IOException,

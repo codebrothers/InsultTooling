@@ -12,7 +12,7 @@
   <artifactId>insult-tools-java-tools</artifactId>
   <packaging>jar</packaging>
 
-  <name>Insult Tooling (in Java)</name>
+  <name>Insult Tools</name>
 
   <dependencies>
     <!-- Third party dependencies -->

@@ -8,7 +8,7 @@
   <artifactId>insult-tools-java</artifactId>
   <packaging>pom</packaging>
 
-  <name>Java Insult Tooling</name>
+  <name>Insult Tools Aggregate</name>
   <version>1.0.0-SNAPSHOT</version>
 
   <modules>

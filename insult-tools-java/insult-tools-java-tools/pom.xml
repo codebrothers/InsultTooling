@@ -14,6 +14,27 @@
 
   <name>Insult Tools</name>
 
+  <properties>
+    <romGeneratorInputDir>src\main\resources\phrasepacks\example</romGeneratorInputDir>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.5.0</version>
+        <configuration>
+          <mainClass>org.codebrothers.speechengine.phrasepack.PhrasePackRomGenerator</mainClass>
+          <arguments>
+            <argument>${romGeneratorInputDir}\generatedaudio</argument>
+            <argument>${romGeneratorInputDir}</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <dependencies>
     <!-- Third party dependencies -->
     <dependency>
